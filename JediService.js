@@ -1,15 +1,15 @@
 const fs = require("fs").promises;
 const jediFile = "jedi_list.json";
 
-async function replaceJedi(jediId, jedi) {
+//async function replaceJedi(jediId, jedi) {
   //TODO write logic replacing jedi by it's id with newly passed jedi
-}
+//}
 
-async function deleteJedi(id) {
+async function deleteJedi(jediId) {
   //TODO Delete jedi by given id in our file
 
   const data = await readJediFile();
-  const dataFiltered = data.filter((value) => value.id === id);
+  const dataFiltered = data.filter((jedi) => jedi.id != jediId);
   await writeJediFile(dataFiltered);
   return;
 }
@@ -41,10 +41,41 @@ async function getJedi(id) {
   return data.find((value) => value.id === id);
 }
 
+async function getJediByName(name) {
+  const data = await readJediFile();
+ 
+  return data.find((value) => value.name === name);
+}
+
 async function getAllJedi() {
   const data = await readJediFile();
   return data;
 }
+
+
+async function deleteJedi(id) {
+  //TODO Delete jedi by given id in our file
+
+  const data = await readJediFile();
+  const dataFiltered = data.filter((jedi) => jedi.id !== id);
+  await writeJediFile(dataFiltered);
+
+}
+
+
+async function replaceJedi(nameToreplace, newName) {
+  //TODO Delete jedi by given id in our file
+
+  const data = await readJediFile();
+  const foundJediIndex = data.findIndex((jedi => jedi.name === nameToreplace))
+  //console.log("this is the index of your jedi: " , foundJediIndex)
+  data[foundJediIndex].name = newName 
+  //console.log(data)
+ await writeJediFile(data);
+
+}
+
+
 
 async function readJediFile() {
   try {
@@ -67,7 +98,8 @@ async function writeJediFile(content) {
 module.exports = {
   addJedi,
   getJedi,
+  getJediByName,
   getAllJedi,
-  //  replaceJedi,
-  //  deleteJedi,
+  replaceJedi,
+  deleteJedi,
 };

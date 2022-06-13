@@ -34,7 +34,7 @@
   },
   {
     "id": 3,
-    "name": "Anakin Skywalker",
+    "name": "Darth Vader",
     "height": "188",
     "mass": "84",
     "hair_color": "blond",
@@ -63,17 +63,6 @@
     "skin_color": "green",
     "eye_color": "brown",
     "birth_year": "896BBY",
-    "gender": "male"
-  },
-  {
-    "id": 6,
-    "name": "Ori Marom",
-    "height": "172",
-    "mass": "77",
-    "hair_color": "blond",
-    "skin_color": "fair",
-    "eye_color": "blue",
-    "birth_year": "19BBY",
     "gender": "male"
   }
 ]

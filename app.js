@@ -12,7 +12,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/jedi", async (req, res) => {
-  
   await jediService.addJedi(req.body);
   res.status(200).json(req.body);
 });
@@ -37,9 +36,6 @@ app.get("/jedi/:id", async (req, res) => {
 });
 
 app.get("/jedi", async (req, res) => {
- 
- 
-
   if (res === undefined)
     return res.status(400).json({
       status: 400,
@@ -55,6 +51,49 @@ app.get("/jedi", async (req, res) => {
     });
 
   res.status(200).json(jediAll);
+});
+
+app.delete("/jedi/:id", async (req, res) => {
+  
+  let jediId = Number.parseInt(req.params.id);
+ 
+  if (isNaN(jediId))
+    return res.status(400).json({
+      status: 400,
+      error: "wrong parameters",
+    });
+
+  const jedi = await jediService.getJedi(jediId);
+
+  if (!jedi)
+    return res.status(404).json({
+      status: 404,
+      error: "Not found",
+    });
+
+  jediService.deleteJedi(jediId)
+    
+  res.status(200).json(jedi);
+});
+
+app.put("/jedi/dark_side", async (req, res) => {
+  
+
+ 
+
+
+  const jediToReplace = jediService.getJediByName("Anakin Skywalker")
+  if (!jediToReplace)
+  return res.status(404).json({
+    status: 404,
+    error: "Not found",
+  });
+  
+  jediService.replaceJedi("Anakin Skywalker","Darth Vader")
+
+
+  res.status(200).json(jediToReplace);
+
 });
 
 //TODO 1. create GET /jedi route and handle logic inside of it
